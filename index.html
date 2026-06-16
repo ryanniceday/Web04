@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>極限探索 | 您的世界探險指南</title>
+    <style>
+        /* CSS 樣式區域 */
+        :root {
+            /* 更換為具探險風格的色彩 */
+            --primary-color: #2E8B57; /* 海洋綠 */
+            --secondary-color: #E67E22; /* 溫暖橘 */
+            --text-color: #2c3e50;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, 'LiHei Pro', sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 導覽列 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2.5rem;
+        }
+
+        nav ul li a {
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* 主視覺區 (Hero Section) */
+        .hero {
+            height: 100vh;
+            /* 全新 Unsplash 壯麗山景照片 */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 4px 6px rgba(0,0,0,0.6);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .btn-primary {
+            padding: 15px 35px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #246B43;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.6);
+        }
+
+        /* 通用區塊樣式 */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* 網格系統 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* 卡片設計 */
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .img-wrapper {
+            overflow: hidden;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .card-price {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 1.5rem 0;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: #1a252f;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        footer h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <nav id="navbar">
+        <div class="logo">⛰️ 極限探索</div>
+        <ul>
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#destinations">絕美祕境</a></li>
+            <li><a href="#packages">深度探險</a></li>
+            <li><a href="#contact">聯絡顧問</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主視覺區 -->
+    <header class="hero" id="home">
+        <h1>踏上非凡旅程</h1>
+        <p>遠離塵囂，挑戰自我。我們帶您深入地球上最壯麗的角落，體驗前所未有的震撼與感動。</p>
+        <button class="btn-primary" onclick="document.getElementById('packages').scrollIntoView({behavior: 'smooth'})">開始您的冒險</button>
+    </header>
+
+    <!-- 熱門景點更換 -->
+    <section id="destinations">
+        <h2 class="section-title">世界絕美祕境</h2>
+        <p class="section-subtitle">有生之年必訪的奇幻國度</p>
+        <div class="grid">
+            <!-- 景點 1：冰島 -->
+            <div class="card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="冰島極光">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">冰島 雷克雅維克</h3>
+                    <p>追尋夜空中的綠色奇蹟。在這座冰與火之島，見證壯麗的萬年冰川、黑沙灘與間歇泉的自然力量。</p>
+                </div>
+            </div>
+            <!-- 景點 2：埃及 -->
+            <div class="card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1539768942893-daf53e448371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="埃及金字塔">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">埃及 開羅</h3>
+                    <p>騎乘駱駝漫步於無垠的撒哈拉沙漠，親臨吉薩金字塔群，解開法老王朝沉睡千年的古老神祕面紗。</p>
+                </div>
+            </div>
+            <!-- 景點 3：澳洲 -->
+            <div class="card">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="澳洲雪梨">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">澳洲 雪梨</h3>
+                    <p>擁抱南半球的燦爛陽光。揚帆穿梭於壯麗的雪梨歌劇院港灣，探索藍山國家公園的原始林貌與獨特生態。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精選行程更換 -->
+    <section id="packages" style="background-color: var(--white);">
+        <h2 class="section-title">限量深度探險行程</h2>
+        <p class="section-subtitle">專為渴望不同凡響的旅人所設計</p>
+        <div class="grid">
+            <!-- 行程 1：瑞士滑雪 -->
+            <div class="card">
+                <span class="card-tag">極致奢華</span>
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="瑞士阿爾卑斯山">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">瑞士阿爾卑斯 奢華滑雪七日</h3>
+                    <p>入住採爾馬特五星級雪地木屋，提供專屬教練私人滑雪課程，並搭乘直升機俯瞰馬特洪峰壯麗雪景。</p>
+                    <div class="card-price">NT$ 115,000 / 人</div>
+                    <button class="btn-primary" style="width: 100%;" onclick="bookTour('瑞士阿爾卑斯 奢華滑雪七日')">報名探險</button>
+                </div>
+            </div>
+            <!-- 行程 2：肯亞動物大遷徙 -->
+            <div class="card">
+                <span class="card-tag">生態奇觀</span>
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="非洲大草原與野生動物">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">肯亞大草原 野生動物探險八日</h3>
+                    <p>乘坐改裝越野車深入馬賽馬拉國家公園，見證震撼人心的動物大遷徙，夜宿豪華帳篷營地聆聽大自然的呼喚。</p>
+                    <div class="card-price">NT$ 138,000 / 人</div>
+                    <button class="btn-primary" style="width: 100%;" onclick="bookTour('肯亞大草原 野生動物探險八日')">報名探險</button>
+                </div>
+            </div>
+            <!-- 行程 3：紐約都會 -->
+            <div class="card">
+                <span class="card-tag">文化焦點</span>
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="紐約城市天際線">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">紐約大都會 深度文化體驗六日</h3>
+                    <p>百老匯 VIP 前排劇院門票、米其林三星主廚晚宴，並由專業建築嚮導帶領漫步曼哈頓，感受大蘋果的繁華脈動。</p>
+                    <div class="card-price">NT$ 85,000 / 人</div>
+                    <button class="btn-primary" style="width: 100%;" onclick="bookTour('紐約大都會 深度文化體驗六日')">報名探險</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer id="contact">
+        <h2>世界正在等著您</h2>
+        <p style="margin: 1.5rem 0; font-size: 1.1rem; color: #bdc3c7;">別讓夢想只停留在想像。聯繫我們的極限探險顧問，啟程前往未知。</p>
+        <p>探險熱線: 0800-888-999 | 信箱: explore@xtreme-travel.com.tw</p>
+        <div style="margin-top: 3rem; font-size: 0.85rem; color: #7f8c8d;">
+            &copy; 2026 極限探索旅遊網. All Rights Reserved. <br>
+            Photography provided by <a href="https://unsplash.com" target="_blank" style="color: #95a5a6; text-decoration: underline;">Unsplash</a>.
+        </div>
+    </footer>
+
+    <!-- JavaScript 互動區域 -->
+    <script>
+        // 預訂按鈕點擊事件
+        function bookTour(tourName) {
+            alert(`【報名成功送出】\n\n您已選擇「${tourName}」！\n我們的探險專屬顧問將於 24 小時內與您聯繫，協助您完成後續準備。`);
+        }
+
+        // 導覽列滾動動態效果縮放與陰影加深
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                nav.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                nav.style.padding = '0.8rem 5%';
+            } else {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.08)';
+                nav.style.padding = '1rem 5%';
+            }
+        });
+    </script>
+</body>
+</html>
